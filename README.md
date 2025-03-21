@@ -10,7 +10,12 @@ conda remove -n FGR --all
 git submodule add https://github.com/huggingface/pytorch-image-models.git
 cd pytorch-image-models
 git checkout v1.0.15
-pip install .
+pip install -e .
+
+git clone git@github.com:ChuaHanChong/dinov2.git
+cd dinov2
+git checkout MSAI-Project
+pip install -e . --no-deps
 ```
 
 ### Command
