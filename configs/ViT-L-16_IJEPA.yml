@@ -1,0 +1,5 @@
+model_name: vit_large_patch16_224
+num_classes: 0
+class_token: false
+global_pool: avg
+fc_norm: False
