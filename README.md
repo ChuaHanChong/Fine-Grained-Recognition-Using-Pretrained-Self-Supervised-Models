@@ -16,6 +16,8 @@ git clone git@github.com:ChuaHanChong/dinov2.git
 cd dinov2
 git checkout MSAI-Project
 pip install -e . --no-deps
+
+git clone git@github.com:RobinWu218/SimDINO.git
 ```
 
 ### Command
