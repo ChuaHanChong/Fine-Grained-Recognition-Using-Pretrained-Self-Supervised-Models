@@ -43,11 +43,6 @@ def get_args_parser(
         help="Model configuration file",
     )
     parser.add_argument(
-        "--pretrained-weights",
-        type=str,
-        help="Pretrained model weights",
-    )
-    parser.add_argument(
         "--output-dir",
         default="",
         type=str,
@@ -72,6 +67,12 @@ def get_args_parser(
         default=None,
         nargs="+",
         help="Test datasets, none to reuse the validation dataset",
+    )
+    parser.add_argument(
+        "--pretrained-weights",
+        type=str,
+        default=None,
+        help="Pretrained model weights",
     )
     parser.add_argument(
         "--epochs",
@@ -112,7 +113,7 @@ def get_args_parser(
     parser.add_argument(
         "--learning-rates",
         nargs="+",
-        default=[1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2, 2e-2, 5e-2, 0.1],
+        default=[1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2, 2e-2, 5e-2, 0.1, 0.2, 0.5, 1.0],
         type=float,
         help="Learning rates to grid search.",
     )
@@ -298,7 +299,7 @@ def setup_linear_classifiers(sample_output, n_last_blocks_list, learning_rates, 
                     class_token=class_token,
                 )
                 linear_classifier = linear_classifier.cuda()
-                linear_classifiers_dict[f"classifier_{n}_blocks_avgpool_{avgpool}_lr_{lr:.5f}".replace(".", "_")] = linear_classifier
+                linear_classifiers_dict[f"classifier_{n}_blocks_avgpool_{avgpool}_lr_{lr:.8f}".replace(".", "_")] = linear_classifier
                 optim_param_groups.append({"params": linear_classifier.parameters(), "lr": lr})
 
     linear_classifiers = AllClassifiers(linear_classifiers_dict)
@@ -616,41 +617,4 @@ if __name__ == "__main__":
         help="Use logit adjusted loss",
     )
     args = args_parser.parse_args()
-
-    ncls = 17
-    ngpus = 1  # Use 1 GPU for xxxI datasets
-    args.num_workers = 10
-    args.batch_size = 100 // ngpus  # Use 100 batch size for xxxI datasets
-    args.epochs = 50  # Use 50 epochs for xxxI datasets
-    args.save_checkpoint_frequency = 1
-
-    train_dataset_name = args.train_dataset_str.split(":")[0]
-
-    if "ImageShipID" == train_dataset_name:
-        args.epoch_length = 2_683_401 // 256  # 10482
-    elif "ImageShipID_80P" == train_dataset_name:
-        args.epoch_length = 2_146_720 // 256  # 8385
-    elif "ImageShipID_40P" == train_dataset_name:
-        args.epoch_length = 1_073_360 // 256  # 4192
-    elif "ImageShipID_60P" == train_dataset_name:
-        args.epoch_length = 1_610_040 // 256  # 6289
-    elif "ImageShipID_20P" == train_dataset_name:
-        args.epoch_length = 536_680 // 256  # 2096
-    elif "ImageShipOOD" == train_dataset_name:
-        args.epoch_length = 11_168 // 256  # 43
-    elif "ImageShipID_100I" == train_dataset_name:
-        args.epoch_length = 1700 // 100  # 17
-    elif "ImageShipID_500I" == train_dataset_name:
-        args.epoch_length = 8500 // 100  # 85
-    elif "ImageShipID_1000I" == train_dataset_name:
-        args.epoch_length = 17000 // 100  # 170
-    elif "ImageShipID_5000I" == train_dataset_name:
-        args.epoch_length = 85000 // 100  # 850
-    elif "ImageShipID_10000I" == train_dataset_name:
-        args.epoch_length = 170000 // 100  # 1700
-    else:
-        raise NotImplementedError(f"Unknown dataset: {args.train_dataset_str}")
-
-    args.eval_period_iterations = args.epoch_length
-
     sys.exit(main(args))
