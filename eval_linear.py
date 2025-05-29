@@ -604,6 +604,8 @@ def main(args):
         val_class_mapping_fpath=args.val_class_mapping_fpath,
         test_class_mapping_fpaths=args.test_class_mapping_fpaths,
         logit_adjusted_loss=args.logit_adjusted_loss,
+        balanced_sampler=args.balanced_sampler,
+        balanced_sampler_mode=args.balanced_sampler_mode,
     )
     return 0
 
@@ -611,6 +613,17 @@ def main(args):
 if __name__ == "__main__":
     description = "Linear Evaluation"
     args_parser = get_args_parser(description=description)
+    args_parser.add_argument(
+        "--balanced-sampler",
+        action="store_true",
+        help="Use a balanced sampler for training data",
+    )
+    args_parser.add_argument(
+        "--balanced-sampler-mode",
+        type=lambda x: int(x) if x.isdigit() else x,
+        default="downsampling",
+        help="Balanced sampler mode. Can be 'downsampling', 'upsampling' or an integer value",
+    )
     args_parser.add_argument(
         "--logit-adjusted-loss",
         action="store_true",
