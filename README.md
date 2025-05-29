@@ -15,13 +15,9 @@ pip install -e .
 git clone git@github.com:ChuaHanChong/dinov2.git
 cd dinov2
 git checkout MSAI-Project
-pip install -e . --no-deps
+pip install -e . --no-deps --no-build-isolation
 
 git clone git@github.com:RobinWu218/SimDINO.git
 ```
 
 ### Command
-
-```bash
-python validate.py --data-dir /imagenet/validation/ --model vit_base_patch16_224 --pretrained
-```

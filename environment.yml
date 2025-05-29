@@ -1,10 +1,10 @@
-name: FGR
+name: FGR-PTSSM
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.12
-  - numpy=2.2.3
+  - numpy=2.2.6
   - pandas=2.2.3
   - scikit-learn=1.6.1
   - omegaconf=2.3.0
@@ -14,8 +14,9 @@ dependencies:
   - black
   - pip
   - pip:
-    - torch==2.6.0
-    - torchvision==0.21.0
-    - transformers==4.49.0
-    - torchmetrics-1.6.3
+    - kaggle
+    - torch==2.7.0
+    - torchvision==0.22.0
+    - transformers==4.51.3
+    - torchmetrics==1.7.1
     - fvcore==0.1.5.post20221221
