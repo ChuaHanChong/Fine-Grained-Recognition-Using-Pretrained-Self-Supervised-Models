@@ -15,15 +15,15 @@ from fvcore.common.checkpoint import Checkpointer, PeriodicCheckpointer
 from omegaconf import OmegaConf
 from timm.models import create_model
 
-import dinov2.dinov2.distributed as distributed
-from dinov2.dinov2.data import SamplerType, make_data_loader, make_dataset
-from dinov2.dinov2.data.transforms import make_classification_train_transform
-from dinov2.dinov2.eval.linear import AllClassifiers, evaluate_linear_classifiers, make_eval_data_loader, remove_ddp_wrapper, scale_lr, test_on_datasets
-from dinov2.dinov2.eval.metrics import MetricType
-from dinov2.dinov2.eval.setup import get_autocast_dtype
-from dinov2.dinov2.logging import MetricLogger, setup_logging
-from dinov2.dinov2.utils import utils
-from dinov2.dinov2.utils.config import setup
+import dinov2.distributed as distributed
+from dinov2.data import SamplerType, make_data_loader, make_dataset
+from dinov2.data.transforms import make_classification_train_transform
+from dinov2.eval.linear import AllClassifiers, evaluate_linear_classifiers, make_eval_data_loader, remove_ddp_wrapper, scale_lr, test_on_datasets
+from dinov2.eval.metrics import MetricType
+from dinov2.eval.setup import get_autocast_dtype
+from dinov2.logging import MetricLogger, setup_logging
+from dinov2.utils import utils
+from dinov2.utils.config import setup
 
 
 def get_args_parser(
