@@ -7,6 +7,8 @@ conda env create -f environment.yml -q
 conda env update -f environment.yml --prune
 conda remove -n FGR --all
 
+pip install -e .
+
 git submodule add https://github.com/huggingface/pytorch-image-models.git
 cd pytorch-image-models
 git checkout v1.0.15
@@ -18,6 +20,8 @@ git checkout MSAI-Project
 pip install -e . --no-deps --no-build-isolation
 
 git clone git@github.com:RobinWu218/SimDINO.git
+git clone git@github.com:chou141253/FGVC-PIM.git
+git clone git@github.com:chou141253/FGVC-HERBS.git
 ```
 
 ### Command
