@@ -22,6 +22,7 @@ pip install -e . --no-deps --no-build-isolation
 git clone git@github.com:RobinWu218/SimDINO.git
 git clone git@github.com:chou141253/FGVC-PIM.git
 git clone git@github.com:chou141253/FGVC-HERBS.git
+git clone git@github.com:facebookresearch/webssl.git
 ```
 
 ### Command
